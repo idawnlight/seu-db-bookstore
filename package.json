@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.10.1",
+    "naive-ui": "^2.36.0",
     "nuxt": "^3.8.2",
     "prisma": "^5.7.1",
     "vue": "^3.3.12",
