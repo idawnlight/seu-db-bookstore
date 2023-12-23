@@ -12,9 +12,13 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.10.1",
+    "@pinia/nuxt": "^0.5.1",
+    "@types/jsonwebtoken": "^9.0.5",
+    "jsonwebtoken": "^9.0.2",
     "naive-ui": "^2.36.0",
     "nuxt": "^3.8.2",
     "prisma": "^5.7.1",
+    "unplugin-vue-components": "^0.26.0",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5"
   },
