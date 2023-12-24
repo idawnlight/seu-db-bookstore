@@ -25,4 +25,3 @@ logs
 
 # prisma
 prisma/dev.db
-prisma/migrations
