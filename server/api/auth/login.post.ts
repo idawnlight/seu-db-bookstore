@@ -1,5 +1,6 @@
 import { createToken } from "~/server/helpers/jwt";
 import prisma from "~/server/helpers/prisma";
+import * as argon2 from "argon2";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -18,9 +19,7 @@ export default defineEventHandler(async (event) => {
             ],
         },
     });
-
-    // console.log(user);
-
+    
     if (!user) {
         return {
             status: 401,
@@ -30,7 +29,8 @@ export default defineEventHandler(async (event) => {
         };
     }
 
-    if (!password) {
+    const passwordMatch = await argon2.verify(user.password, password);
+    if (!password || !passwordMatch) {
         return {
             status: 401,
             body: {

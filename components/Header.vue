@@ -3,12 +3,10 @@ import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
 const auth = useAuthStore()
-
-await auth.fetch()
 </script>
 
 <template>
-    <div class="flex py-4 px-8 justify-between">
+    <div class="flex py-4 px-8 justify-between items-center">
         <NuxtLink to="/" class="no-underline">
             <div class="flex">
                 <h1 class="text-3xl">BookStore</h1>
@@ -22,7 +20,7 @@ await auth.fetch()
                     <n-button>Logout</n-button>
                 </NuxtLink>
             </div>
-            <div v-else class="flex gap-2">
+            <div v-else class="flex gap-2 items-center">
                 <NuxtLink to="/auth/login">
                     <n-button>Login</n-button>
                 </NuxtLink>

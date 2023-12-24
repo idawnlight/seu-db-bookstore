@@ -1,15 +1,26 @@
 <script setup>
 import { useAuthStore } from '~/stores/auth'
+import { useNotification } from 'naive-ui'
 
 const auth = useAuthStore()
+const notification = useNotification()
 
 const username = ref('')
 const password = ref('')
 
 const login = async () => {
     const result = await auth.login({ username: username.value, password: password.value })
-    if (result) navigateTo('/')
-    else alert('登录失败')
+    if (result) {
+        notification.success({
+            title: '登录成功',
+            content: '欢迎回来'
+        })
+        navigateTo('/')
+    }
+    else notification.error({
+        title: '登录失败',
+        content: '用户名或密码不正确'
+    })
 }
 </script>
 
