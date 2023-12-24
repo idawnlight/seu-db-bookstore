@@ -15,8 +15,8 @@ model Book {
   price     Int
   stock     Int
   isbn      String      @unique
-  OrderItem OrderItem[]
-  Comment   Comment[]
+  comments  Comment[]
+  purchased OrderItem[]
 }
 
 model User {
@@ -27,16 +27,16 @@ model User {
   phone    String    @unique
   address  String?
   name     String?
-  Order    Order[]
-  Comment  Comment[]
+  orders   Order[]
+  comments Comment[]
 }
 
 model Order {
   id        Int         @id @default(autoincrement())
   buyer     User        @relation(fields: [buyerId], references: [id])
   buyerId   Int
-  createdAt DateTime
-  OrderItem OrderItem[]
+  createdAt DateTime    @default(now())
+  items     OrderItem[]
 }
 
 model OrderItem {
@@ -56,5 +56,5 @@ model Comment {
   book      Book     @relation(fields: [bookId], references: [id])
   bookId    Int
   content   String
-  createdAt DateTime
+  createdAt DateTime @default(now())
 }

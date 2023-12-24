@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     try {
         const payload = verifyToken(token);
         return {
-            body: {
+            data: {
                 "userId": payload.userId,
             },
         };
