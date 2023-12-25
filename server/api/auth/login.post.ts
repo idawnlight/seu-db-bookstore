@@ -23,9 +23,7 @@ export default defineEventHandler(async (event) => {
     if (!user) {
         return {
             status: 401,
-            body: {
-                error: "User not found",
-            },
+            error: "User not found",
         };
     }
 
@@ -33,9 +31,7 @@ export default defineEventHandler(async (event) => {
     if (!password || !passwordMatch) {
         return {
             status: 401,
-            body: {
-                error: "Password is incorrect",
-            },
+            error: "Password is incorrect",
         };
     }
 

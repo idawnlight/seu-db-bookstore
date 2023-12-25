@@ -15,6 +15,7 @@ model Book {
   price     Int
   stock     Int
   isbn      String      @unique
+  cover     String?
   comments  Comment[]
   purchased OrderItem[]
 }
@@ -27,6 +28,7 @@ model User {
   phone    String    @unique
   address  String?
   name     String?
+  roles    String[]  @default(["user"])
   orders   Order[]
   comments Comment[]
 }

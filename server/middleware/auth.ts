@@ -8,10 +8,19 @@ export default defineEventHandler(async (event) => {
         const payload = verifyToken(token);
         const userId = payload.userId;
         const user = await prisma.user.findUnique({ where: { id: userId } })
+        if (!user) {
+            throw new Error("User not found")
+        }
         event.context.auth = {
             user: user,
+            role: (role: string) => {
+                return user.roles.indexOf(role) !== -1
+            }
         }
     } catch (error) {
-        event.context.auth = null
+        event.context.auth = {
+            user: null,
+            role: (role: string) => { return false }
+        }
     }
 })
