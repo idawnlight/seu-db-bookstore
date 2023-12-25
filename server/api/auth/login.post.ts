@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
             ],
         },
     });
-    
+
     if (!user) {
         return {
             status: 401,
@@ -46,6 +46,7 @@ export default defineEventHandler(async (event) => {
         sameSite: "none",
     });
     return {
+        status: 200,
         data: {
             userId: user.id,
         },

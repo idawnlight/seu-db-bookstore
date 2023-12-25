@@ -1,16 +1,12 @@
-import { verifyToken } from "~/server/helpers/jwt";
-
 export default defineEventHandler(async (event) => {
-    const cookies = parseCookies(event);
-    const token = cookies.token;
-    try {
-        const payload = verifyToken(token);
+    if (event.context.auth) {
         return {
+            status: 200,
             data: {
-                "userId": payload.userId,
+                "userId": event.context.auth.user.id,
             },
         };
-    } catch (error) {
+    } else {
         return {
             status: 401,
             body: {

@@ -9,8 +9,7 @@ await auth.fetch()
 <template>
     <Header />
 
-    <div class="m-4">
-
+    <div class="py-4 px-8">
         <n-notification-provider>
             <NuxtPage />
         </n-notification-provider>
