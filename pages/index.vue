@@ -5,16 +5,13 @@ const books = (await useFetch('/api/book/list')).data
 </script>
 
 <template>
-    <!-- <div>
-        <h1>Nuxt Routing set up successfully!</h1>
-        
-        <a href="https://nuxt.com/docs/getting-started/routing" target="_blank">Learn more about Nuxt Routing</a>
-    </div> -->
-    <ol>
-        <li v-for="book in books?.data">
+    <div class="grid gap-2 grid-cols-6">
+        <BookItem v-for="book in books?.data" :title="book.title" :author="book.author"
+            :price-head="Math.floor(book.price / 100)" :price-tail="(book.price % 100).toString().padEnd(2, '0')">
             {{ book.title }}
-        </li>
-    </ol>
+        </BookItem>
+    </div>
+
     <NuxtLink to="/hello">
         <n-button>Go to Hello page</n-button>
     </NuxtLink>
