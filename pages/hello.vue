@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // const { data } = await useFetch('/api/echo')
+import BookItem from '~/components/BookItem.vue';
 </script>
 
 <template>
@@ -8,4 +9,6 @@
         Hello world!
     </h1> -->
     <n-button>hello</n-button>
+
+    <book-item title="Database System Concepts" author="by Abraham Silberschatz, Henry Korth, et al." price-head="105" price-tail="61"></book-item>
 </template>
