@@ -37,7 +37,7 @@ const testComment = ref(<Comment & {
   <book-details :book="testBook"></book-details>
   <div class="text-2xl">Comments</div>
   <div class="h-4"></div>
-  <make-comment :comment="testComment"></make-comment>
+  <make-comment :user="testUser"></make-comment>
   <n-divider/>
   <comment :comment="testComment"></comment>
 

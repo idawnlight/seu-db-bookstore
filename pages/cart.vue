@@ -1,4 +1,6 @@
 <script setup>
+import { ArrowForward } from '@vicons/ionicons5';
+
 const cart = useCartStore()
 
 const cartCount = ref(0)
@@ -9,7 +11,6 @@ watchEffect(async () => {
 const selectedBooks = ref([])
 const handleUpdateValue = (value) => {
     selectedBooks.value = value
-    console.log(selectedBooks.value)
 }
 
 const cartTotal = ref(0)
@@ -17,12 +18,10 @@ watchEffect(async () => {
     cartTotal.value = cart.items.reduce((total, item) => {
         return selectedBooks.value.includes(item.book.id) ? total + item.book.price * item.quantity : total
     }, 0)
-    console.log(cartTotal.value)
 })
 
 const handleChange = (book, value) => {
     cart.update(book.id, value)
-    // console.log(book, value)
 }
 </script>
 
@@ -41,8 +40,16 @@ const handleChange = (book, value) => {
                 </div>
                 <div v-else>
                     <div class="flex justify-between items-center">
-                        <div>Total <div class="text-2xl">¥{{ cartTotal / 100 }}</div></div>
-                        <n-button type="primary" :disabled="!selectedBooks.length">Checkout</n-button>
+                        <div>Total <div class="text-2xl">¥{{ (cartTotal / 100).toFixed(2) }}</div>
+                        </div>
+                        <n-button type="primary" :disabled="!selectedBooks.length" icon-placement="right">
+                            <template #icon>
+                                <n-icon>
+                                    <ArrowForward />
+                                </n-icon>
+                            </template>
+                            Checkout
+                        </n-button>
                     </div>
                 </div>
             </template>
@@ -52,14 +59,16 @@ const handleChange = (book, value) => {
                     <n-checkbox :value="item.book.id"></n-checkbox>
                 </template>
                 <template #suffix>
-                    <n-input-number :value="item.quantity" button-placement="both" @update:value="(v) => handleChange(item.book, v)" class="w-24" />
+                    <p class="text-xl"><strong>¥{{ (item.book.price / 100).toFixed(2) }}</strong></p>
+                    <n-input-number :value="item.quantity" button-placement="both"
+                        @update:value="(v) => handleChange(item.book, v)" class="w-24" />
                 </template>
-                <n-thing :title="item.book.title" :description="item.book.author">
+                <n-thing :title="item.book.title" :description="item.book.author"
+                    @click.stop="navigateTo('/book/' + item.book.id)">
                     <template #avatar>
                         <n-image width="80" :src="item.book.cover || '/images/cover_placeholder.png'" />
                     </template>
                 </n-thing>
             </n-list-item>
         </n-list>
-    </n-checkbox-group>
-</template>
+</n-checkbox-group></template>

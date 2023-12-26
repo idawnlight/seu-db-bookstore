@@ -38,16 +38,16 @@ export default defineEventHandler(async (event) => {
                     message: "Book removed from cart."
                 }
             }
+        } else {
+            const updatedCart = await prisma.cart.update({
+                where: {
+                    id: cart.id
+                },
+                data: {
+                    quantity: req.quantity
+                }
+            })
         }
-
-        const updatedCart = await prisma.cart.update({
-            where: {
-                id: cart.id
-            },
-            data: {
-                quantity: req.quantity
-            }
-        })
     } catch (error) {
         const newCart = await prisma.cart.create({
             data: {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { CartOutline } from '@vicons/ionicons5'
+import { CartOutline, ArrowDown, LogOut, LogOutOutline, PersonCircleOutline, BookOutline, ConstructOutline } from '@vicons/ionicons5'
+import { NIcon } from 'naive-ui'
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -9,6 +10,47 @@ const cartCount = ref(0)
 watchEffect(async () => {
     cartCount.value = await cart.getCount()
 })
+
+const renderIcon = (icon: Component) => {
+  return () => {
+    return h(NIcon, null, {
+      default: () => h(icon)
+    })
+  }
+}
+const userActions = ref([
+    {
+        label: 'Profile',
+        key: '/profile',
+        icon: renderIcon(PersonCircleOutline)
+    },
+    {
+        label: 'My Orders',
+        key: '/orders',
+        icon: renderIcon(BookOutline)
+    },
+    {
+        label: 'Logout',
+        key: '/auth/logout',
+        icon: renderIcon(LogOutOutline)
+    }
+])
+
+const isAdmin = ref(false)
+watchEffect(async () => {
+    isAdmin.value = await auth.role('admin')
+    if (isAdmin.value) {
+        userActions.value.push({
+            label: 'Admin',
+            key: '/admin',
+            icon: renderIcon(ConstructOutline)
+        })
+    }
+})
+
+const handleAction = (key: string) => {
+    navigateTo(key)
+}
 </script>
 
 <template>
@@ -21,16 +63,20 @@ watchEffect(async () => {
         </NuxtLink>
         <div class="flex gap-2">
             <div v-if="auth.loggedIn" class="flex gap-2 items-center">
-                <p>Hello {{ auth.info.name }}</p>
                 <n-button secondary strong @click="navigateTo('/cart')">
                     <template #icon>
                         <n-icon>
                             <CartOutline />
                         </n-icon>
                     </template>
-                    {{ cartCount }}
+                    {{ cartCount }} books in Cart
                 </n-button>
-                <n-button @click="navigateTo('/auth/logout')">Logout</n-button>
+                <!-- <div v-if="isAdmin">
+                    <n-button @click="navigateTo('/admin')">Admin</n-button>
+                </div> -->
+                <n-dropdown trigger="hover" placement="bottom-start" :options="userActions" @select="handleAction" size="large">
+                    <n-button>Hello,&nbsp;<strong>{{ auth.info.name }}</strong>&nbsp;<n-icon><ArrowDown /></n-icon></n-button>
+                </n-dropdown>
             </div>
             <div v-else class="flex gap-2 items-center">
                 <n-button @click="navigateTo('/auth/login')">Login</n-button>

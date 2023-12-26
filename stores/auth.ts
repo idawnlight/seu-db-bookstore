@@ -39,6 +39,10 @@ export const useAuthStore = defineStore("authStore", {
             await $fetch("/api/auth/logout", { method: "POST" });
             this.loggedIn = false;
             this.userId = "";
+        },
+
+        async role(role: string) {
+            return this.info.roles.includes(role);
         }
     },
 });
