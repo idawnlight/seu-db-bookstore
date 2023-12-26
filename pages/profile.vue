@@ -1,17 +1,9 @@
 <script setup lang="ts">
-import { defineComponent, ref } from "vue";
-// import { FormInst, FormItemRule, useMessage } from "naive-ui";
-import type { User } from "@prisma/client";
-import { BusinessOutline, EarthOutline } from "@vicons/ionicons5";
-import { BarcodeFilled } from "@vicons/material";
-
-const props = defineProps<{
-  user: User;
-}>();
+const auth = useAuthStore();
 
 const basicInformation = ref({
-  username: props.user.username,
-  email: props.user.email,
+  username: auth.info.username,
+  email: auth.info.email,
 });
 
 const basicInformationRules = ref({
@@ -34,9 +26,9 @@ const password = ref({
 });
 
 const address = ref({
-  name: props.user.name,
-  phone: props.user.phone,
-  address: props.user.address,
+  name: auth.info.name,
+  phone: auth.info.phone,
+  address: auth.info.address,
 });
 
 const addressRules = ref({
@@ -64,7 +56,7 @@ const addressRules = ref({
       <n-avatar
         round
         :size="330"
-        src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+        :src="auth.info.avatar || 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'"
       />
       <div class="h-5"></div>
       <div width="330" class="flex flex-col">
@@ -76,7 +68,7 @@ const addressRules = ref({
       <n-layout-content>
         <div class="pl-10">
           <div class="text-3xl font-semibold">Profile</div>
-          <div class="text-xl">Hi, {{ user.username }}</div>
+          <div class="text-xl">Hi, {{ auth.info.name }}</div>
           <n-divider />
           <div class="text-xl">Basic Information</div>
           <div class="h-4"></div>
