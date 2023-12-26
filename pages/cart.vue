@@ -12,6 +12,11 @@ const selectedBooks = ref([])
 const handleUpdateValue = (value) => {
     selectedBooks.value = value
 }
+const selectedCartItems = computed(() => {
+    return cart.items.filter((item) => {
+        return selectedBooks.value.includes(item.book.id)
+    })
+})
 
 const cartTotal = ref(0)
 watchEffect(async () => {
@@ -23,9 +28,26 @@ watchEffect(async () => {
 const handleChange = (book, value) => {
     cart.update(book.id, value)
 }
+
+const showModal = ref(false)
+const checkout = () => {
+    showModal.value = true
+}
+const handleCancel = () => {
+    showModal.value = false
+}
+const orderConfirmed = () => {
+    showModal.value = false
+    for (const bookId of selectedBooks.value) {
+        cart.update(bookId, 0)
+    }
+    navigateTo('/orders')
+}
 </script>
 
 <template>
+    <OrderModal :show-modal="showModal" @cancel="handleCancel" @confirmed="orderConfirmed" :books="selectedCartItems" />
+
     <n-checkbox-group :value="selectedBooks" @update:value="handleUpdateValue">
         <n-list bordered>
             <template #header>
@@ -42,7 +64,7 @@ const handleChange = (book, value) => {
                     <div class="flex justify-between items-center">
                         <div>Total <div class="text-2xl">¥{{ (cartTotal / 100).toFixed(2) }}</div>
                         </div>
-                        <n-button type="primary" :disabled="!selectedBooks.length" icon-placement="right">
+                        <n-button type="primary" :disabled="!selectedBooks.length" icon-placement="right" @click.stop="checkout">
                             <template #icon>
                                 <n-icon>
                                     <ArrowForward />
