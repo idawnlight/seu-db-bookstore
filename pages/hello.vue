@@ -17,6 +17,10 @@ const testBook = ref(<Book>{
 const testUser = ref(<User>{
     avatar: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
     username: "Test User",
+    email: "someone@example.com",
+    phone: "0101234567",
+    address: "Quahog, Earth, Solar System",
+    name: "Peter Griffin",
 })
 
 const testComment = ref(<Comment & {
@@ -33,7 +37,8 @@ const testComment = ref(<Comment & {
   <!-- <h1 class="text-3xl font-bold underline">
         Hello world!
     </h1> -->
-  <n-button>hello</n-button>
+  <!-- <n-button>hello</n-button> -->
+  <profile-editor :user="testUser"></profile-editor>
   <book-details :book="testBook"></book-details>
   <div class="text-2xl">Comments</div>
   <div class="h-4"></div>
