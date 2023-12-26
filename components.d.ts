@@ -10,6 +10,7 @@ declare module 'vue' {
     NAvatar: typeof import('naive-ui')['NAvatar']
     NBadge: typeof import('naive-ui')['NBadge']
     NButton: typeof import('naive-ui')['NButton']
+    NButtonGroup: typeof import('naive-ui')['NButtonGroup']
     NCard: typeof import('naive-ui')['NCard']
     NCheckbox: typeof import('naive-ui')['NCheckbox']
     NCheckboxGroup: typeof import('naive-ui')['NCheckboxGroup']
@@ -35,6 +36,9 @@ declare module 'vue' {
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NTable: typeof import('naive-ui')['NTable']
     NThing: typeof import('naive-ui')['NThing']
+    NUpload: typeof import('naive-ui')['NUpload']
+    NUploadFileList: typeof import('naive-ui')['NUploadFileList']
+    NUploadTrigger: typeof import('naive-ui')['NUploadTrigger']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

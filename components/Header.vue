@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CartOutline, ArrowDown, LogOut, LogOutOutline, PersonCircleOutline, BookOutline, ConstructOutline } from '@vicons/ionicons5'
+import { CartOutline, ArrowDown, LogOutOutline, PersonCircleOutline, BookOutline, ConstructOutline } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 
 const route = useRoute()
@@ -39,7 +39,7 @@ const userActions = ref([
 const isAdmin = ref(false)
 watchEffect(async () => {
     isAdmin.value = await auth.role('admin')
-    if (isAdmin.value) {
+    if (isAdmin.value && !userActions.value.find((action) => action.key === '/admin')) {
         userActions.value.push({
             label: 'Admin',
             key: '/admin',
