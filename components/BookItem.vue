@@ -10,6 +10,9 @@
             <div class="text-2xl">{{ Math.floor(book.price / 100) }}</div>
             <div class="pt-0.5">{{ (book.price % 100).toString().padEnd(2, '0') }}</div>
         </div>
+        <n-button round class="absolute bottom-2 right-2" @click="$emit('addToCart', book)">
+            + Cart
+        </n-button>
     </n-card>
 </template>
 
@@ -18,6 +21,10 @@ import type { Book } from '@prisma/client';
 
 defineProps<{
     book: Book
+}>()
+
+defineEmits<{
+    (e: 'addToCart', book: Book): void
 }>()
 </script>
 

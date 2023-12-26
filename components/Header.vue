@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth'
+import { CartOutline } from '@vicons/ionicons5'
 
 const route = useRoute()
 const auth = useAuthStore()
+const cart = useCartStore()
+
+const cartCount = ref(0)
+watch(() => cart.items, async () => {
+    cartCount.value = await cart.getCount()
+}, { immediate: true })
 </script>
 
 <template>
@@ -16,17 +22,19 @@ const auth = useAuthStore()
         <div class="flex gap-2">
             <div v-if="auth.loggedIn" class="flex gap-2 items-center">
                 <p>Hello {{ auth.info.name }}</p>
-                <NuxtLink to="/auth/logout">
-                    <n-button>Logout</n-button>
-                </NuxtLink>
+                <n-button secondary strong @click="navigateTo('/cart')">
+                    <template #icon>
+                        <n-icon>
+                            <CartOutline />
+                        </n-icon>
+                    </template>
+                    {{ cartCount }}
+                </n-button>
+                <n-button @click="navigateTo('/auth/logout')">Logout</n-button>
             </div>
             <div v-else class="flex gap-2 items-center">
-                <NuxtLink to="/auth/login">
-                    <n-button>Login</n-button>
-                </NuxtLink>
-                <NuxtLink to="/auth/register">
-                    <n-button>Register</n-button>
-                </NuxtLink>
+                <n-button @click="navigateTo('/auth/login')">Login</n-button>
+                <n-button @click="navigateTo('/auth/login')">Register</n-button>
             </div>
         </div>
     </div>

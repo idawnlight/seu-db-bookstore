@@ -18,6 +18,7 @@ model Book {
   cover     String?
   comments  Comment[]
   purchased OrderItem[]
+  cart      Cart[]
 }
 
 model User {
@@ -31,6 +32,16 @@ model User {
   roles    String[]  @default(["user"])
   orders   Order[]
   comments Comment[]
+  cart     Cart[]
+}
+
+model Cart {
+  id       Int  @id @default(autoincrement())
+  user     User @relation(fields: [userId], references: [id])
+  userId   Int
+  book     Book @relation(fields: [bookId], references: [id])
+  bookId   Int
+  quantity Int
 }
 
 model Order {

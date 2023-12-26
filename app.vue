@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth'
 const route = useRoute()
 
 const auth = useAuthStore()
+const cart = useCartStore()
 await callOnce(async () => {
     await auth.fetch()
+    await cart.fetch()
 })
 </script>
 
 <template>
     <Header />
 
-    <div class="py-4 px-8">
-        <n-notification-provider>
+    <n-notification-provider>
+        <div class="py-4 px-8">
             <NuxtPage />
-        </n-notification-provider>
-    </div>
+        </div>
+    </n-notification-provider>
 </template>

@@ -14,6 +14,7 @@
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@pinia/nuxt": "^0.5.1",
     "@types/jsonwebtoken": "^9.0.5",
+    "@vicons/ionicons5": "^0.12.0",
     "argon2": "^0.31.2",
     "jsonwebtoken": "^9.0.2",
     "naive-ui": "^2.36.0",
