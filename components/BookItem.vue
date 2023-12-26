@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import type { Book } from '@prisma/client';
+
+defineProps<{
+    book: Book
+}>()
+
+defineEmits<{
+    (e: 'addToCart', book: Book): void
+}>()
+
+const auth = useAuthStore();
+</script>
+
 <template>
     <n-card hoverable @click="navigateTo('/book/' + book.id)">
         <template #cover>
@@ -10,23 +24,11 @@
             <div class="text-2xl">{{ Math.floor(book.price / 100) }}</div>
             <div class="pt-0.5">{{ (book.price % 100).toString().padEnd(2, '0') }}</div>
         </div>
-        <n-button round class="absolute bottom-2 right-2" @click.stop="$emit('addToCart', book)">
+        <n-button v-if="auth.loggedIn" round class="absolute bottom-2 right-2" @click.stop="$emit('addToCart', book)">
             + Cart
         </n-button>
     </n-card>
 </template>
-
-<script setup lang="ts">
-import type { Book } from '@prisma/client';
-
-defineProps<{
-    book: Book
-}>()
-
-defineEmits<{
-    (e: 'addToCart', book: Book): void
-}>()
-</script>
 
 <style scoped>
 .n-card {

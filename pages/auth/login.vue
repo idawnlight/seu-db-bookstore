@@ -1,5 +1,4 @@
 <script setup>
-import { useAuthStore } from '~/stores/auth'
 import { useNotification } from 'naive-ui'
 
 const auth = useAuthStore()

@@ -7,6 +7,8 @@ const props = defineProps<{
     book: Book
 }>()
 
+const auth = useAuthStore()
+
 const quantity = ref(1)
 const cart = useCartStore()
 
@@ -98,11 +100,14 @@ const currentBook = computed(() => {
 
                     <n-divider />
 
-                    <div class="flex space-x-5">
+                    <div class="flex space-x-4">
                         <div class="text-xl font-semibold">¥{{ (book.price / 100).toFixed(2) }}</div>
-                        <n-input-number v-model:value="quantity" />
-                        <n-button type="info" @click.stop="checkout">Buy</n-button>
-                        <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to Cart</n-button>
+                        <div v-if="auth.loggedIn" class="flex space-x-4">
+                            <n-input-number v-model:value="quantity" />
+                            <n-button type="info" @click.stop="checkout">Buy</n-button>
+                            <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to
+                                Cart</n-button>
+                        </div>
                     </div>
                 </div>
             </n-layout-content>

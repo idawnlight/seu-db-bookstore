@@ -24,10 +24,13 @@ const postComment = async (comment) => {
 
 <template>
     <div v-if="book">
-    <book-details :book="book"></book-details>
-    <div class="text-2xl">Comments</div>
-    <make-comment class="pt-4" :user="auth.info" @addComment="postComment"></make-comment>
-    <n-divider/>
-    <comment v-for="comment in commentList" :comment="comment" class="pt-4"></comment>
-</div>
+        <book-details :book="book"></book-details>
+        <div class="text-2xl">Comments</div>
+        <make-comment v-if="auth.loggedIn" class="pt-4" :user="auth.info" @addComment="postComment"></make-comment>
+        <n-divider />
+        <div class="flex flex-col gap-y-6">
+            <comment v-for="comment in commentList" :comment="comment"></comment>
+        </div>
+        <div v-if="commentList.length === 0" class="text-xl">No comments yet.</div>
+    </div>
 </template>

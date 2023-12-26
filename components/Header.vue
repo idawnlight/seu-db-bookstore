@@ -84,7 +84,7 @@ const handleAction = (key: string) => {
             </div>
             <div v-else class="flex gap-2 items-center">
                 <n-button @click="navigateTo('/auth/login')">Login</n-button>
-                <n-button @click="navigateTo('/auth/login')">Register</n-button>
+                <n-button @click="navigateTo('/auth/register')">Register</n-button>
             </div>
         </div>
     </div>

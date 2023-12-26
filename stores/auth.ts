@@ -35,6 +35,21 @@ export const useAuthStore = defineStore("authStore", {
             }
         },
 
+        async register(newUser: User) {
+            const res = await $fetch("/api/auth/register", {
+                method: "POST",
+                body: newUser,
+            });
+
+            // @ts-ignore
+            if (res.data?.userId) {
+                await this.fetch();
+                return true;
+            } else {
+                return false;
+            }
+        },
+
         async logout() {
             await $fetch("/api/auth/logout", { method: "POST" });
             this.loggedIn = false;
@@ -42,6 +57,9 @@ export const useAuthStore = defineStore("authStore", {
         },
 
         async role(role: string) {
+            if (!this.loggedIn) {
+                return false;
+            }
             return this.info.roles.includes(role);
         }
     },
