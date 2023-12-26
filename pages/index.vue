@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const route = useRoute()
 const cart = useCartStore()
 
 const books = (await useFetch('/api/book/list')).data

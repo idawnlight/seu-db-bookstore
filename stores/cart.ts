@@ -10,6 +10,8 @@ export const useCartStore = defineStore("cartStore", {
 
             if (res.status === 200) {
                 // @ts-ignore
+                res.data.sort((a, b) => a.id - b.id);
+                // @ts-ignore
                 this.items = res.data.map((item) => ({
                     book: item.book,
                     quantity: item.quantity,
@@ -31,7 +33,21 @@ export const useCartStore = defineStore("cartStore", {
             }
         },
 
-        getCount() {
+        async update(bookId: number, quantity: number) {
+            const res = await $fetch("/api/cart/update", {
+                method: "POST",
+                body: JSON.stringify({ bookId, quantity }),
+            });
+
+            if (res.status === 200) {
+                await this.fetch();
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        async getCount() {
             return this.items.reduce((total, item) => {
                 return total + item.quantity;
             }, 0);

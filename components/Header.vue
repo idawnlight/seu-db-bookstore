@@ -6,9 +6,9 @@ const auth = useAuthStore()
 const cart = useCartStore()
 
 const cartCount = ref(0)
-watch(() => cart.items, async () => {
+watchEffect(async () => {
     cartCount.value = await cart.getCount()
-}, { immediate: true })
+})
 </script>
 
 <template>

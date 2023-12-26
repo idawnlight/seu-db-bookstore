@@ -8,17 +8,18 @@ datasource db {
 }
 
 model Book {
-  id        Int         @id @default(autoincrement())
-  title     String
-  author    String
-  publisher String
-  price     Int
-  stock     Int
-  isbn      String      @unique
-  cover     String?
-  comments  Comment[]
-  purchased OrderItem[]
-  cart      Cart[]
+  id          Int         @id @default(autoincrement())
+  title       String
+  author      String
+  publisher   String
+  price       Int
+  stock       Int
+  isbn        String      @unique
+  cover       String?
+  description String?
+  comments    Comment[]
+  purchased   OrderItem[]
+  cart        Cart[]
 }
 
 model User {
