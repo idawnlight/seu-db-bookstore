@@ -12,11 +12,11 @@ watchEffect(async () => {
 })
 
 const renderIcon = (icon: Component) => {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
+    return () => {
+        return h(NIcon, null, {
+            default: () => h(icon)
+        })
+    }
 }
 const userActions = ref([
     {
@@ -74,9 +74,13 @@ const handleAction = (key: string) => {
                 <!-- <div v-if="isAdmin">
                     <n-button @click="navigateTo('/admin')">Admin</n-button>
                 </div> -->
-                <n-dropdown trigger="hover" placement="bottom-start" :options="userActions" @select="handleAction" size="large">
-                    <n-button>Hello,&nbsp;<strong>{{ auth.info.name }}</strong>&nbsp;<n-icon><ArrowDown /></n-icon></n-button>
+                <n-dropdown trigger="hover" placement="bottom-start" :options="userActions" @select="handleAction"
+                    size="large">
+                    <n-button>Hello,&nbsp;<strong>{{ auth.info.name }}</strong>&nbsp;<n-icon>
+                            <ArrowDown />
+                        </n-icon></n-button>
                 </n-dropdown>
+                <n-avatar round size="small" :src="auth.info.avatar || 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" @click="navigateTo('/profile')" />
             </div>
             <div v-else class="flex gap-2 items-center">
                 <n-button @click="navigateTo('/auth/login')">Login</n-button>
