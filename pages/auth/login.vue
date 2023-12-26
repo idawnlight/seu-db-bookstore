@@ -9,7 +9,7 @@ const username = ref('')
 const password = ref('')
 
 const login = async () => {
-    const result = await auth.login({ username: username.value, password: password.value })
+    const result = await auth.login(username.value, password.value)
     if (result) {
         notification.success({
             title: '登录成功',

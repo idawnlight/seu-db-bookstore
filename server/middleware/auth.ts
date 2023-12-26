@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
         if (!user) {
             throw new Error("User not found")
         }
+        user.password = "";
         event.context.auth = {
             user: user,
             role: (role: string) => {

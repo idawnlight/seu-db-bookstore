@@ -3,7 +3,9 @@ import { useAuthStore } from '~/stores/auth'
 const route = useRoute()
 
 const auth = useAuthStore()
-await auth.fetch()
+await callOnce(async () => {
+    await auth.fetch()
+})
 </script>
 
 <template>

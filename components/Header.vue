@@ -15,7 +15,7 @@ const auth = useAuthStore()
         </NuxtLink>
         <div class="flex gap-2">
             <div v-if="auth.loggedIn" class="flex gap-2 items-center">
-                <p>Hello {{ auth.userId }}</p>
+                <p>Hello {{ auth.info.name }}</p>
                 <NuxtLink to="/auth/logout">
                     <n-button>Logout</n-button>
                 </NuxtLink>

@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
             status: 200,
             data: {
                 "userId": event.context.auth.user.id,
+                "info": event.context.auth.user,
             },
         };
     } else {
