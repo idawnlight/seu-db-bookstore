@@ -8,9 +8,11 @@ watchEffect(async () => {
     cartCount.value = await cart.getCount()
 })
 
+const selectAllChecked = ref(false)
 const selectedBooks = ref([])
 const handleUpdateValue = (value) => {
     selectedBooks.value = value
+    selectAllChecked.value = value.length === cart.items.length
 }
 const selectedCartItems = computed(() => {
     return cart.items.filter((item) => {
@@ -43,39 +45,55 @@ const orderConfirmed = () => {
     }
     navigateTo('/orders')
 }
+
+const selectAll = (value) => {
+    if (value) {
+        selectedBooks.value = cart.items.map((item) => item.book.id)
+        selectAllChecked.value = true
+    } else {
+        selectedBooks.value = []
+        selectAllChecked.value = false
+    }
+}
 </script>
 
 <template>
     <OrderModal :show-modal="showModal" @cancel="handleCancel" @confirmed="orderConfirmed" :books="selectedCartItems" />
 
-    <n-checkbox-group :value="selectedBooks" @update:value="handleUpdateValue">
-        <n-list bordered>
-            <template #header>
+    <n-list bordered>
+        <template #header>
+            <div class="flex justify-between items-center">
+                <div class="font-bold text-2xl">Cart</div>
+                <div>There are {{ cartCount }} items in your cart.</div>
+            </div>
+        </template>
+        <template #footer>
+            <div v-if="!cartCount" class="flex justify-center items-center">
+                <div class="text-2xl">Your cart is empty.</div>
+            </div>
+            <div v-else>
                 <div class="flex justify-between items-center">
-                    <div class="font-bold text-2xl">Cart</div>
-                    <div>There are {{ cartCount }} items in your cart.</div>
-                </div>
-            </template>
-            <template #footer>
-                <div v-if="!cartCount" class="flex justify-center items-center">
-                    <div class="text-2xl">Your cart is empty.</div>
-                </div>
-                <div v-else>
-                    <div class="flex justify-between items-center">
-                        <div>Total <div class="text-2xl">¥{{ (cartTotal / 100).toFixed(2) }}</div>
+                    <div class="flex items-center gap-4">
+                        <n-checkbox :checked="selectAllChecked" @update:checked="selectAll" />
+                        <div>
+                            Total <div class="text-2xl">¥{{ (cartTotal / 100).toFixed(2) }}</div>
                         </div>
-                        <n-button type="primary" :disabled="!selectedBooks.length" icon-placement="right" @click.stop="checkout">
-                            <template #icon>
-                                <n-icon>
-                                    <ArrowForward />
-                                </n-icon>
-                            </template>
-                            Checkout
-                        </n-button>
                     </div>
+                    <n-button type="primary" :disabled="!selectedBooks.length" icon-placement="right"
+                        @click.stop="checkout">
+                        <template #icon>
+                            <n-icon>
+                                <ArrowForward />
+                            </n-icon>
+                        </template>
+                        Checkout
+                    </n-button>
                 </div>
-            </template>
+            </div>
+        </template>
 
+        <n-checkbox-group :value="selectedBooks" @update:value="handleUpdateValue"
+            style="border-bottom: 1px solid var(--n-merged-border-color)">
             <n-list-item v-for="item in cart.items" :key="item.book.id">
                 <template #prefix>
                     <n-checkbox :value="item.book.id"></n-checkbox>
@@ -92,5 +110,6 @@ const orderConfirmed = () => {
                     </template>
                 </n-thing>
             </n-list-item>
-        </n-list>
-</n-checkbox-group></template>
+        </n-checkbox-group>
+    </n-list>
+</template>
