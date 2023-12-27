@@ -12,6 +12,14 @@ const book = ref(<Book>{
   description: "",
 });
 
+const users = useFetch("/api/user/all");
+const userList = computed(() => {
+  const data = users.data.value;
+  if (data && "data" in data) {
+    return data.data;
+  }
+});
+
 const orders = useFetch("/api/order/all");
 const orderList = computed(() => {
   const data = orders.data.value;
@@ -47,9 +55,8 @@ const orderList = computed(() => {
       ></order-table>
     </n-tab-pane>
     <n-tab-pane name="userManagement" tab="User Management">
-      <div v-if="book">
-        <edit-book :book="book"></edit-book>
-      </div>
+        <!-- <edit-book :book="book"></edit-book> -->
+        <user-table :user="userList"></user-table>
     </n-tab-pane>
   </n-tabs>
 </template>
