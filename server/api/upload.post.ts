@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
             }
         };
     } else if (data.code !== "success") {
+        console.log(data);
         return {
             status: 500,
             error: "Internal Server Error",
