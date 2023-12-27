@@ -38,6 +38,7 @@ const testComment = ref(<Comment & {
         Hello world!
     </h1> -->
   <!-- <n-button>hello</n-button> -->
+  <add-book></add-book>
   <profile-editor :user="testUser"></profile-editor>
   <book-details :book="testBook"></book-details>
   <div class="text-2xl">Comments</div>
