@@ -14,7 +14,7 @@ defineProps<{
             <n-layout-header> </n-layout-header>
             <n-layout-content>
                 <div class="flex space-x-5">
-                    <n-avatar :size="48" :src="comment.user.avatar ?? 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
+                    <n-avatar round :size="48" :src="comment.user.avatar ?? 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
                     <div>
                         <div class="text-lg">{{ comment.user.name }}</div>
                         <div>Commented on {{ comment.createdAt }}</div>

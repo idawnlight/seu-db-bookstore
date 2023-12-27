@@ -31,6 +31,6 @@ const postComment = async (comment) => {
         <div class="flex flex-col gap-y-6">
             <comment v-for="comment in commentList" :comment="comment"></comment>
         </div>
-        <div v-if="commentList.length === 0" class="text-xl">No comments yet.</div>
+        <div v-if="commentList && commentList.length === 0" class="text-xl">No comments yet.</div>
     </div>
 </template>

@@ -1,7 +1,7 @@
 import prisma from "~/server/helpers/prisma";
 
 export default defineEventHandler(async (event) => {
-    if (!event.context.auth.role("admin")) {
+    if (!event.context.auth.role("user")) {
         return {
             status: 401,
             error: "Unauthorized",
