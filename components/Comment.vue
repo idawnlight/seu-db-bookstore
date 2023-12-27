@@ -17,7 +17,7 @@ defineProps<{
                     <n-avatar round :size="48" :src="comment.user.avatar ?? 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
                     <div>
                         <div class="text-lg">{{ comment.user.name }}</div>
-                        <div>Commented on {{ comment.createdAt }}</div>
+                        <div>Commented on {{ (new Date(comment.createdAt)).toDateString() }}</div>
                     </div>
                 </div>
                 <div class="h-2"></div>

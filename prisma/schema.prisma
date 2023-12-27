@@ -50,6 +50,7 @@ model Order {
   id        Int         @id @default(autoincrement())
   buyer     User        @relation(fields: [buyerId], references: [id])
   buyerId   Int
+  address   String
   createdAt DateTime    @default(now())
   items     OrderItem[]
 }

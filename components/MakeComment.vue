@@ -17,7 +17,7 @@ const comment = ref('');
         <n-layout has-sider>
             <n-layout-sider width="50">
                 <div class="pt-2" />
-                <n-avatar :size="48" :src="user.avatar || 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
+                <n-avatar round :size="48" :src="user.avatar || 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
             </n-layout-sider>
             <n-layout>
                 <n-layout-header></n-layout-header>

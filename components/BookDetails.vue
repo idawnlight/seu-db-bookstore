@@ -62,16 +62,6 @@ const currentBook = computed(() => {
                     </div>
                     <n-divider />
                     <n-grid x-gap="12" :cols="5">
-                        <!-- <n-gi>
-              <div class="flex flex-col items-center">
-                <div>Language</div>
-                <div class="h-2.5"></div>
-                <n-icon size="30">
-                  <EarthOutline />
-                </n-icon>
-                <div class="font-semibold">English</div>
-              </div>
-            </n-gi> -->
                         <n-gi>
                             <div class="flex flex-col items-center">
                                 <div>Publisher</div>

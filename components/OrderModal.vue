@@ -13,8 +13,25 @@ const emits = defineEmits<{
     (c: 'confirmed'): void
 }>()
 
-const submitOrder = () => {
-    emits('confirmed')
+const message = ref('')
+
+const submitOrder = async () => {
+    const res = await $fetch('/api/order/place', {
+        method: 'POST',
+        body: {
+            data: props.books.map(item => ({
+                bookId: item.book.id,
+                quantity: item.quantity
+            }))
+        }
+    })
+
+    if (res.status !== 200) {
+        message.value = 'Failed to place order. Please try again later.'
+        return
+    } else {
+        emits('confirmed')
+    }
 }
 </script>
 
@@ -55,6 +72,9 @@ const submitOrder = () => {
                     <n-button @click="$emit('cancel')" class="flex">
                         Cancel
                     </n-button>
+                </div>
+                <div v-if="message != ''">
+                    <p class="text-red-500">{{ message }}</p>
                 </div>
             </template>
         </n-card>
