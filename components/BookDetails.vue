@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Book } from '@prisma/client';
-import { BusinessOutline, EarthOutline } from "@vicons/ionicons5";
+import { BusinessOutline, FileTrayOutline } from "@vicons/ionicons5";
 import { BarcodeFilled } from "@vicons/material";
 
 const props = defineProps<{
@@ -92,14 +92,16 @@ const currentBook = computed(() => {
                                 <div class="font-semibold">{{ book.isbn }}</div>
                             </div>
                         </n-gi>
-                        <!-- <n-gi>
-              <div class="flex flex-col items-center">
-                <div>Edition</div>
-                <div class="h-2.5"></div>
-                <div class="text-2xl">#</div>
-                <div class="font-semibold">{{ edition }}</div>
-              </div>
-            </n-gi> -->
+                        <n-gi>
+                            <div class="flex flex-col items-center">
+                                <div>Stock</div>
+                                <div class="h-2.5"></div>
+                                <n-icon size="30">
+                                    <FileTrayOutline />
+                                </n-icon>
+                                <div class="font-semibold">{{ book.stock }} in stock</div>
+                            </div>
+                        </n-gi>
                     </n-grid>
 
                     <n-divider />
@@ -107,9 +109,10 @@ const currentBook = computed(() => {
                     <div class="flex space-x-4">
                         <div class="text-xl font-semibold">¥{{ (book.price / 100).toFixed(2) }}</div>
                         <div v-if="auth.loggedIn" class="flex space-x-4">
-                            <n-input-number v-model:value="quantity" />
+                            <n-input-number :min="1" :max="book.stock" v-model:value="quantity" />
                             <n-button type="info" @click.stop="checkout">Buy</n-button>
-                            <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to Cart</n-button>
+                            <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to
+                                Cart</n-button>
                         </div>
                         <div v-if="isAdmin" class="flex space-x-4">
                             <n-button dashed type="info" @click="() => navigateTo(`/book/edit/${book.id}`)">Edit</n-button>

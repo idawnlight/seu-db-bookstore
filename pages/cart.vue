@@ -100,7 +100,7 @@ const selectAll = (value) => {
                 </template>
                 <template #suffix>
                     <p class="text-xl"><strong>¥{{ (item.book.price / 100).toFixed(2) }}</strong></p>
-                    <n-input-number :value="item.quantity" button-placement="both"
+                    <n-input-number :min="0" :max="item.book.stock" :value="item.quantity" button-placement="both"
                         @update:value="(v) => handleChange(item.book, v)" class="w-24" />
                 </template>
                 <n-thing :title="item.book.title" :description="item.book.author"
