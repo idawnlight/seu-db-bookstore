@@ -8,6 +8,10 @@ const props = defineProps<{
 }>()
 
 const auth = useAuthStore()
+const isAdmin = ref(false)
+watchEffect(async () => {
+    isAdmin.value = await auth.role('admin')
+})
 
 const quantity = ref(1)
 const cart = useCartStore()
@@ -105,8 +109,10 @@ const currentBook = computed(() => {
                         <div v-if="auth.loggedIn" class="flex space-x-4">
                             <n-input-number v-model:value="quantity" />
                             <n-button type="info" @click.stop="checkout">Buy</n-button>
-                            <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to
-                                Cart</n-button>
+                            <n-button strong secondary type="info" @click="() => addQuantityToCart(book.id)">Add to Cart</n-button>
+                        </div>
+                        <div v-if="isAdmin" class="flex space-x-4">
+                            <n-button dashed type="info" @click="() => navigateTo(`/book/edit/${book.id}`)">Edit</n-button>
                         </div>
                     </div>
                 </div>

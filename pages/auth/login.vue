@@ -2,6 +2,7 @@
 import { useNotification } from 'naive-ui'
 
 const auth = useAuthStore()
+const cart = useCartStore()
 const notification = useNotification()
 
 const username = ref('')
@@ -14,6 +15,7 @@ const login = async () => {
             title: 'Login success',
             content: 'Welcome back!'
         })
+        await cart.fetch()
         navigateTo('/')
     }
     else notification.error({

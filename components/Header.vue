@@ -45,6 +45,8 @@ watchEffect(async () => {
             key: '/admin',
             icon: renderIcon(ConstructOutline)
         })
+    } else if (!isAdmin.value && userActions.value.find((action) => action.key === '/admin')) {
+        userActions.value = userActions.value.filter((action) => action.key !== '/admin')
     }
 })
 
