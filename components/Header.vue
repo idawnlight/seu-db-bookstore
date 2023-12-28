@@ -59,8 +59,9 @@ const handleAction = (key: string) => {
     <div class="flex py-4 px-8 justify-between items-center">
         <NuxtLink to="/" class="no-underline">
             <div class="flex">
-                <h1 class="text-3xl">BookStore</h1>
-                <p>Current route: {{ route.path }}</p>
+                <h1 class="text-3xl">The BookStore</h1>
+                <p class="text-xl">&trade;</p>
+                <!--<p>Current route: {{ route.path }}</p>-->
             </div>
         </NuxtLink>
         <div class="flex gap-2">

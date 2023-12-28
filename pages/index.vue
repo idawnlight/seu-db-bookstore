@@ -34,7 +34,7 @@ const onSearch = (value: string) => {
         </template>
     </n-input>
     <div class="grid gap-2 grid-cols-6">
-        <BookItem v-for="book in books" :book="book" @add-to-cart="cart.add(book.id)"></BookItem>
+        <BookItem v-for="book in books" :book="book" @add-to-cart="cart.add(book.id)" :key="book.id"></BookItem>
     </div>
     <div v-if="books && books.length === 0" class="text-xl">No books found.</div>
 </template>
