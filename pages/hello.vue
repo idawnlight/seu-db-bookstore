@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// const { data } = await useFetch('/api/echo')
 import type { Book, User, Comment } from "@prisma/client";
 import BookItem from "~/components/BookItem.vue";
 
