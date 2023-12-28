@@ -35,7 +35,6 @@ export default defineEventHandler(async (event) => {
         const token = createToken({ userId: user.id });
         setCookie(event, "token", token, {
             httpOnly: true,
-            secure: true,
             sameSite: "none",
         });
 
